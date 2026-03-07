@@ -1,0 +1,16 @@
+
+# Env file
+.env
+
+# Dependencies
+node_modules/
+
+# logs
+*.log
+
+# System Files (this is when i work on Mac) 
+.DS_Store
+
+# System files (this is when i work on Windows)
+Thumbs.db
+desktop.ini
