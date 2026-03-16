@@ -73,9 +73,12 @@ app.use((req, res) => {
 
 app.use((err, req, res, next) => {
     console.error(err.stack)
+    res.locals.isLoggedIn = res.locals.isLoggedIn || false
+    res.locals.user = res.locals.user || null
+    res.locals.successMessage = null
+    res.locals.errorMessage = null
     res.status(500).render('errors/500')
 })
-
 // ================================
 // Start the server
 // ================================
