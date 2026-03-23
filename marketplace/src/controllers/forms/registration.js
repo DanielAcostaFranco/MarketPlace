@@ -6,7 +6,7 @@ async function showRegistrationForm(req, res) {
 }
 
 async function handleRegistration(req, res) {
-    const { username, email, password, role } = req.body
+    const { username, email, password } = req.body
 
     try {
         // Check if email already exists
@@ -23,7 +23,7 @@ async function handleRegistration(req, res) {
             return res.redirect('/register');
         }
 
-        await createUser(username, email, password, role);
+        await createUser(username, email, password);
         req.session.successMessage = 'Registration successful! You can now log in.';
         res.redirect('/login');
 

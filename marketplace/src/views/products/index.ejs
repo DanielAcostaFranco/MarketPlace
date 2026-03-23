@@ -1,0 +1,38 @@
+<%- include ('../partials/header') %>
+
+    <main>
+        <h1>Products</h1>
+        <div class="products-grid">
+            <% products.forEach((product, index)=> { %>
+                <div class="product-card <%= index >= 10 ? 'hidden' : '' %>">
+                    <img src="<%= product.image_url %>" alt="<%= product.name %>">
+                    <h3>
+                        <%= product.name %>
+                    </h3>
+                    <p>
+                        <%= product.description %>
+                    </p>
+                    <p class="price">$<%= parseFloat(product.price).toFixed(2) %>
+                    </p>
+                    <a href="/products/<%= product.id %>" class="btn">View Details</a>
+                </div>
+                <% }) %>
+        </div>
+
+        <div class="load-more-container">
+            <button id="load-more-btn">Load More</button>
+        </div>
+    </main>
+
+    <script>
+        const btn = document.getElementById('load-more-btn');
+        const hidden = () => document.querySelectorAll('.product-card.hidden');
+
+        btn.addEventListener('click', () => {
+            const toShow = Array.from(hidden()).slice(0, 10);
+            toShow.forEach(card => card.classList.remove('hidden'));
+            if (hidden().length === 0) btn.style.display = 'none';
+        });
+    </script>
+
+    <%- include('../partials/footer') %>
