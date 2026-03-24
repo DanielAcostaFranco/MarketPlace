@@ -2,9 +2,39 @@
 
     <main>
         <h1>Products</h1>
+        <div class="filters">
+            <select id="category-filter">
+                <option value="">All Categories</option>
+                <option value="Audio">Audio</option>
+                <option value="Gaming">Gaming</option>
+                <option value="Health">Health</option>
+                <option value="Home">Home</option>
+                <option value="Lighting">Lighting</option>
+                <option value="Mobility">Mobility</option>
+                <option value="Monitors">Monitors</option>
+                <option value="Networking">Networking</option>
+                <option value="Phones">Phones</option>
+                <option value="Printers">Printers</option>
+                <option value="Smart Home">Smart Home</option>
+                <option value="Storage">Storage</option>
+                <option value="Streaming">Streaming</option>
+                <option value="TV">TV</option>
+                <option value="Tablets">Tablets</option>
+                <option value="Wearables">Wearables</option>
+            </select>
+
+            <select id="sort-filter">
+                <option value="">Sort by</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="name-asc">Name: A-Z</option>
+            </select>
+        </div>
         <div class="products-grid">
             <% products.forEach((product, index)=> { %>
-                <div class="product-card <%= index >= 10 ? 'hidden' : '' %>">
+                <div class="product-card <%= index >= 10 ? 'hidden' : '' %>" data-category="<%= product.category %>"
+                    data-price="<%= product.price %>" data-name="<%= product.name.toLowerCase() %>">
+
                     <img src="<%= product.image_url %>" alt="<%= product.name %>">
                     <h3>
                         <%= product.name %>
@@ -24,15 +54,45 @@
         </div>
     </main>
 
+    // JavaScript for Load More and Filters
     <script>
         const btn = document.getElementById('load-more-btn');
         const hidden = () => document.querySelectorAll('.product-card.hidden');
+        const categoryFilter = document.getElementById('category-filter');
+        const sortFilter = document.getElementById('sort-filter');
 
         btn.addEventListener('click', () => {
             const toShow = Array.from(hidden()).slice(0, 10);
             toShow.forEach(card => card.classList.remove('hidden'));
             if (hidden().length === 0) btn.style.display = 'none';
         });
+
+        // Filter and sort functionality
+        function applyFilters() {
+            const category = categoryFilter.value;
+            const sort = sortFilter.value;
+            let products = Array.from(document.querySelectorAll('.product-card'));
+
+            if (category) {
+                products.forEach(card => {
+                    card.style.display = card.dataset.category === category ? 'block' : 'none';
+                });
+            } else {
+                products.forEach(card => card.style.display = 'block');
+            }
+
+            if (sort) {
+                products.sort((a, b) => {
+                    if (sort === 'price-asc') return parseFloat(a.dataset.price) - parseFloat(b.dataset.price);
+                    if (sort === 'price-desc') return parseFloat(b.dataset.price) - parseFloat(a.dataset.price);
+                    if (sort === 'name-asc') return a.dataset.name.localeCompare(b.dataset.name);
+                });
+                const grid = document.querySelector('.products-grid');
+                products.forEach(card => grid.appendChild(card));
+            }
+        }
+        categoryFilter.addEventListener('change', applyFilters);
+        sortFilter.addEventListener('change', applyFilters);
     </script>
 
     <%- include('../partials/footer') %>
