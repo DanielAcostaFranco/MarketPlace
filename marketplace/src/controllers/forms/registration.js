@@ -1,4 +1,5 @@
 import { findUserByEmail, findUserByUsername, createUser } from '../../models/forms/registration.js';
+import { validationResult } from 'express-validator';
 
 // Show the registration form
 async function showRegistrationForm(req, res) {
@@ -6,30 +7,35 @@ async function showRegistrationForm(req, res) {
 }
 
 async function handleRegistration(req, res) {
-    const { username, email, password } = req.body
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        errors.array().forEach(error => req.flash('error', error.msg));
+        return res.redirect('/register');
+    }
+
+    const { username, email, password } = req.body;
+
 
     try {
-        // Check if email already exists
         const existingEmail = await findUserByEmail(email);
         if (existingEmail) {
-            req.session.errorMessage = 'Email already in use. Please choose another one.';
+            req.flash('error', 'Email already in use. Please choose another one.');
             return res.redirect('/register');
         }
 
-        //Check if username already exists
         const existingUsername = await findUserByUsername(username);
         if (existingUsername) {
-            req.session.errorMessage = 'Username already taken. Please choose another one.';
+            req.flash('error', 'Username already taken. Please choose another one.');
             return res.redirect('/register');
         }
 
         await createUser(username, email, password);
-        req.session.successMessage = 'Registration successful! You can now log in.';
+        req.flash('success', 'Registration successful! You can now log in.');
         res.redirect('/login');
 
     } catch (error) {
         console.error('Error during registration:', error);
-        req.session.errorMessage = 'An error occurred during registration. Please try again.';
+        req.flash('error', 'An error occurred during registration. Please try again.');
         res.redirect('/register');
     }
 }

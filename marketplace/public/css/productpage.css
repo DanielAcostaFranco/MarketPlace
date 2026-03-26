@@ -32,3 +32,40 @@
     padding: 0.75rem 2rem;
     cursor: pointer;
 }
+
+.filters {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+}
+
+.filters select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: white;
+    color: #222;
+    cursor: pointer;
+}
+
+.filters select:focus {
+    outline: none;
+    border-color: #0b63c9;
+}
+
+#load-more-btn {
+    padding: 0.75rem 2rem;
+    background: #0b63c9;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+#load-more-btn:hover {
+    background: #0952a8;
+}

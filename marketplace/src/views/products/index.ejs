@@ -34,8 +34,9 @@
             <% products.forEach((product, index)=> { %>
                 <div class="product-card <%= index >= 10 ? 'hidden' : '' %>" data-category="<%= product.category %>"
                     data-price="<%= product.price %>" data-name="<%= product.name.toLowerCase() %>">
-
-                    <img src="<%= product.image_url %>" alt="<%= product.name %>">
+                    <a href="/products/<%= product.id %>">
+                        <img src="<%= product.image_url %>" alt="<%= product.name %>">
+                    </a>
                     <h3>
                         <%= product.name %>
                     </h3>
@@ -54,7 +55,6 @@
         </div>
     </main>
 
-    // JavaScript for Load More and Filters
     <script>
         const btn = document.getElementById('load-more-btn');
         const hidden = () => document.querySelectorAll('.product-card.hidden');

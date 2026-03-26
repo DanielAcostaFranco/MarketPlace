@@ -1,9 +1,29 @@
 <%- include('./partials/header') %>
 
-    <main>
-        <h1>Welcome to Damazon</h1>
-        <p>Find the best products at the best prices.</p>
-        <a href="/products">Browse Products</a>
+    <main class="home">
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Welcome to Damazon</h1>
+                <p>Find the best tech products at the best prices.</p>
+                <a href="/products" class="btn-hero">Shop Now</a>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories">
+            <h2>Shop by Category</h2>
+            <div class="categories-grid">
+                <a href="/products?category=Audio" class="category-card">🎧 Audio</a>
+                <a href="/products?category=Gaming" class="category-card">🎮 Gaming</a>
+                <a href="/products?category=Phones" class="category-card">📱 Phones</a>
+                <a href="/products?category=Accessories" class="category-card">🖱️ Accessories</a>
+                <a href="/products?category=Smart Home" class="category-card">🏠 Smart Home</a>
+                <a href="/products?category=TV" class="category-card">📺 TV</a>
+            </div>
+        </section>
+
     </main>
 
     <%- include('./partials/footer') %>

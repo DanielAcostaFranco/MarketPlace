@@ -1,0 +1,75 @@
+.home {
+    max-width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+/* Hero */
+.hero {
+    background: linear-gradient(135deg, #0b63c9, #0952a8);
+    color: white;
+    text-align: center;
+    padding: 80px 20px;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    font-size: 1.1rem;
+    margin-bottom: 24px;
+    opacity: 0.9;
+}
+
+.btn-hero {
+    background: white;
+    color: #0b63c9;
+    padding: 12px 32px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1rem;
+    text-decoration: none;
+}
+
+.btn-hero:hover {
+    background: #f0f0f0;
+}
+
+/* Categories */
+.categories {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.categories h2 {
+    margin-bottom: 24px;
+    color: #222;
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+}
+
+.category-card {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 24px;
+    font-weight: bold;
+    color: #222;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: border-color 0.2s;
+}
+
+.category-card:hover {
+    border-color: #0b63c9;
+    color: #0b63c9;
+}

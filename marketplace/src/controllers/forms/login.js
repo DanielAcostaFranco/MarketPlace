@@ -15,7 +15,7 @@ async function handleLogin(req, res) {
 
         // If user was not found or password is incorrect
         if (!user) {
-            req.session.errorMessage = 'Invalid email or password. Please try again.';
+            req.flash('error', 'Invalid email or password. Please try again.');
             return res.redirect('/login');
         }
 
@@ -23,12 +23,12 @@ async function handleLogin(req, res) {
         req.session.isLoggedIn = true;
         req.session.user = user
 
-        req.session.successMessage = `Welcome back, ${user.username}!`;
+        req.flash('success', `Welcome back, ${user.username}!`);
         res.redirect('/');
 
     } catch (error) {
         console.error('Error during login:', error);
-        req.session.errorMessage = 'An error occurred during login. Please try again.';
+        req.flash('error', 'An error occurred during login. Please try again.');
         res.redirect('/login');
     }
 }

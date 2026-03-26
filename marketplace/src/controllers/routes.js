@@ -3,6 +3,7 @@ import { showRegistrationForm, handleRegistration } from './forms/registration.j
 import { showLoginForm, handleLogin, handleLogout } from './forms/login.js';
 import { showProducts } from './products/products.js';
 import { showProductDetail } from './products/detail.js';
+import { registrationValidation, loginValidation } from '../middleware/validation/forms.js';
 
 const router = express.Router();
 
@@ -13,11 +14,11 @@ router.get('/', (req, res) => {
 
 // Registration Page
 router.get('/register', showRegistrationForm)
-router.post('/register', handleRegistration)
+router.post('/register', registrationValidation, handleRegistration)
 
 // Login Page
 router.get('/login', showLoginForm)
-router.post('/login', handleLogin)
+router.post('/login', loginValidation, handleLogin)
 router.get('/logout', handleLogout)
 
 // Products Page
