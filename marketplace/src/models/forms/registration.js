@@ -1,5 +1,5 @@
-const pool = require('../db');
-const bcrypt = require('bcryptjs');
+import pool from '../db.js';
+import bcrypt from 'bcryptjs';
 
 // Check if email exists in the database
 async function findUserByEmail(email) {
@@ -32,8 +32,4 @@ async function createUser(username, email, password, role = 'buyer') {
     return result.rows[0];
 }
 
-module.exports = {
-    findUserByEmail,
-    findUserByUsername,
-    createUser
-}
+export { findUserByEmail, findUserByUsername, createUser };

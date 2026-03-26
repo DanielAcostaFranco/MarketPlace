@@ -1,7 +1,7 @@
-const pool = require('../db');
-const bcrypt = require('bcryptjs');
+import pool from '../db.js';
+import bcrypt from 'bcryptjs';
 
-// Find user by email and passwod
+// Find user by email and password
 async function loginUser(email, password) {
     //Find user by email
     const result = await pool.query(
@@ -27,4 +27,4 @@ async function loginUser(email, password) {
     }
 }
 
-module.exports = { loginUser };
+export { loginUser };

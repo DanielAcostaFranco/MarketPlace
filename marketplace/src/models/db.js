@@ -1,8 +1,5 @@
-// Importing PG library
-const { Pool } = require('pg');
-
-// Load env files
-require('dotenv').config();
+import { Pool } from 'pg';
+import 'dotenv/config';
 
 // Create a new pool instance. Note for myself: The pool is the place where we
 //  manage our connections to the database. It allows us to reuse connections and manage them efficiently.
@@ -18,5 +15,4 @@ const pool = new Pool({
 })
 
 // Export pool for others files or services to use
-module.exports = pool;
-
+export default pool;

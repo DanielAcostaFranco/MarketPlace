@@ -1,4 +1,4 @@
-const { loginUser } = require('../../models/forms/login');
+import { loginUser } from '../../models/forms/login.js';
 
 // Show login form
 async function showLoginForm(req, res) {
@@ -40,4 +40,4 @@ async function handleLogout(req, res) {
 
 }
 
-module.exports = { showLoginForm, handleLogin, handleLogout };
+export { showLoginForm, handleLogin, handleLogout };

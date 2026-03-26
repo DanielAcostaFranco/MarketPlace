@@ -3,14 +3,24 @@
 // Imports of modules and configuration
 // ================================
 
-const express = require('express')
-const session = require('express-session')
-const pgSession = require('connect-pg-simple')(session)
-const path = require('path')
-require('dotenv').config()
+import express from 'express'
+import session from 'express-session'
+import connectPgSimple from 'connect-pg-simple'
+import path from 'path'
+import { fileURLToPath } from 'url'
+import 'dotenv/config'
+import flash from './src/middleware/flash.js'
 
-const pool = require('./src/models/db')
-const { setupDatabase, testConnection } = require('./src/models/setup')
+
+import pool from './src/models/db.js'
+import { setupDatabase, testConnection } from './src/models/setup.js'
+import router from './src/controllers/routes.js'
+
+const pgSession = connectPgSimple(session)
+
+// ESM replacement for __dirname
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = path.dirname(__filename)
 
 // App initialization
 const app = express()
@@ -43,28 +53,29 @@ app.use(session({
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // Session expires in 30 days
 }))
 
-// Global variables 
+// ================================
+// Flash Messages
+// ================================
+app.use(flash);
+
+// Global variables
 app.use((req, res, next) => {
     res.locals.isLoggedIn = req.session.isLoggedIn || false
     res.locals.user = req.session.user || null
-    res.locals.successMessage = req.session.successMessage || null
-    res.locals.errorMessage = req.session.errorMessage || null
-    // Clear messages after they've been displayed
-    delete req.session.successMessage
-    delete req.session.errorMessage
     next()
 })
 
 
 
+
 // ================================
-// Routes 
+// Routes
 // ================================
-app.use('/', require('./src/controllers/routes'))
+app.use('/', router)
 
 
 // ================================
-// Error Handling 
+// Error Handling
 // ================================
 
 app.use((req, res) => {

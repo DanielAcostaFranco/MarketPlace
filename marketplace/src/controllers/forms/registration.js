@@ -1,4 +1,4 @@
-const { findUserByEmail, findUserByUsername, createUser } = require('../../models/forms/registration');
+import { findUserByEmail, findUserByUsername, createUser } from '../../models/forms/registration.js';
 
 // Show the registration form
 async function showRegistrationForm(req, res) {
@@ -34,4 +34,4 @@ async function handleRegistration(req, res) {
     }
 }
 
-module.exports = { showRegistrationForm, handleRegistration };
+export { showRegistrationForm, handleRegistration };

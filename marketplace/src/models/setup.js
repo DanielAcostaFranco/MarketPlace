@@ -1,4 +1,4 @@
-const pool = require('./db')
+import pool from './db.js'
 
 async function setupDatabase() {
     try {
@@ -110,4 +110,4 @@ async function testConnection() {
     }
 }
 
-module.exports = { setupDatabase, testConnection };
+export { setupDatabase, testConnection };

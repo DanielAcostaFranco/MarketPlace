@@ -26,15 +26,17 @@
 
     </nav>
 
-    <!-- Flash Messages-->
-    <% if (successMessage) { %>
-        <div class="flash-message success">
-            <%= successMessage %>
-        </div>
-        <% } %>
 
-            <% if (errorMessage) { %>
-                <div class="flash-message error">
-                    <%= errorMessage %>
-                </div>
-                <% } %>
+    <% const messages=flash(); const hasMessages=Object.values(messages).some(arr=> arr.length > 0);
+        %>
+        <% if (hasMessages) { %>
+            <div class="flash-messages">
+                <% Object.keys(messages).forEach(type=> { %>
+                    <% messages[type].forEach(message=> { %>
+                        <div class="flash <%= type %>">
+                            <%= message %>
+                        </div>
+                        <% }); %>
+                            <% }); %>
+            </div>
+            <% } %>

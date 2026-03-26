@@ -1,4 +1,4 @@
-const { getProductDetail } = require('../../models/products/detail');
+import { getProductDetail } from '../../models/products/detail.js';
 
 async function showProductDetail(req, res) {
     const { id } = req.params;
@@ -6,4 +6,4 @@ async function showProductDetail(req, res) {
     res.render('products/detail', { product });
 }
 
-module.exports = { showProductDetail };
+export { showProductDetail };
