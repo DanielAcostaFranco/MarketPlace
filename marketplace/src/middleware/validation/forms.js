@@ -85,6 +85,17 @@ const contactValidation = [
         })
 ];
 
+const reviewValidation = [
+    body('rating')
+        .isInt({ min: 1, max: 5 })
+        .withMessage('Rating must be an integer between 1 and 5'),
+    body('comment')
+        .trim()
+        .isLength({ min: 10, max: 2000 })
+        .withMessage('Comment must be between 10 and 2000 characters')
+];
+
+
 export {
     contactValidation,
     registrationValidation,
