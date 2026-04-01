@@ -24,7 +24,7 @@ async function handleLogin(req, res) {
         req.session.user = user
 
         req.flash('success', `Welcome back, ${user.username}!`);
-        res.redirect('/dashboard');
+        res.redirect('/my-orders');
 
     } catch (error) {
         console.error('Error during login:', error);
@@ -35,6 +35,7 @@ async function handleLogin(req, res) {
 
 async function handleLogout(req, res) {
     req.session.destroy(err => {
+        res.clearCookie('connect.sid');
         res.redirect('/login');
     });
 

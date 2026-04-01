@@ -2,42 +2,42 @@
 
 <%- include('../partials/header') %>
 
-    <main class="cart">
-        <h1>My Shopping Cart</h1>
-        <% if (items.length === 0) { %>
-            <p>Your cart is empty. <a href="/products">Start shopping!</a></p>
-        <% } else { %>
-            <table class="cart-table">
-                <thead>
-                    <tr>
-                        <th>Product</th>
-                        <th>Price</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% items.forEach(item => { %>
-                        <tr>
-                            <td>
+    <main class="cart-container">
+        <h1 class="cart-header">My Shopping Cart</h1>
+        <% if (items.length===0) { %>
+            <div class="empty-cart">
+                <p>Your cart is empty. <a href="/products">Start shopping!</a></p>
+            </div>
+            <% } else { %>
+                <div class="cart-items">
+                    <% items.forEach(item=> { %>
+                        <div class="cart-item">
+                            <div class="item-details">
                                 <img src="<%= item.image_url %>" alt="<%= item.name %>" width="50">
-                                <%= item.name %>
-                            </td>
-                            <td>$<%= parseFloat(item.price).toFixed(2) %></td>
-                            <td>
-                                <form action="/cart/remove" method="POST">
-                                    <input type="hidden" name="cart_id" value="<%= item.id %>">
-                                    <button type="submit" class="btn">Remove</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <% }) %>
-                </tbody>
-            </table>
-            <p><strong>Total: $<%= total.toFixed(2) %></strong></p>
-            <form action="/checkout" method="POST">
-                <button type="submit" class="btn">Checkout</button>
-            </form>
-        <% } %>
+                                <p class="item-name">
+                                    <%= item.name %>
+                                </p>
+                                <p class="item-price">$<%= parseFloat(item.price).toFixed(2) %>
+                                </p>
+                            </div>
+                            <form action="/cart/remove" method="POST">
+                                <input type="hidden" name="cart_id" value="<%= item.id %>">
+                                <button type="submit" class="btn">Remove</button>
+                            </form>
+                        </div>
+                        <% }) %>
+                </div>
+                <div class="cart-summary">
+                    <div class="summary-row summary-total">
+                        <span>Total:</span>
+                        <span>$<%= total.toFixed(2) %></span>
+                    </div>
+                    <form action="/checkout" method="POST">
+                        <button type="submit" class="checkout-btn">Checkout</button>
+                    </form>
+                </div>
+                <% } %>
     </main>
 
-<%- include('../partials/footer') %>
+
+    <%- include('../partials/footer') %>

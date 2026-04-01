@@ -6,6 +6,7 @@ import { showProducts, handleDeleteProduct } from './products/products.js';
 import { showProductDetail } from './products/detail.js';
 import { registrationValidation, loginValidation, reviewValidation } from '../middleware/validation/forms.js';
 import { handleCreateReview, handleDeleteReview } from './reviews/reviews.js';
+import { handleCheckout } from './orders/orders.js';
 import isAdmin from '../middleware/admin.js';
 import { showDashboard } from './dashboard/dashboard.js';
 import { showCart, handleAddToCart, handleRemoveFromCart } from './cart/cart.js';
@@ -39,8 +40,8 @@ router.post('/products/:id/delete', isAdmin, handleDeleteProduct)
 router.post('/products/:id/review', isLoggedIn, reviewValidation, handleCreateReview)
 router.post('/reviews/:id/delete', isAdmin, handleDeleteReview)
 
-// Dashboard Page
-router.get('/dashboard', isLoggedIn, showDashboard)
+// My Orders Page
+router.get('/my-orders', isLoggedIn, showDashboard)
 
 // Cart Page 
 router.get('/cart', isLoggedIn, showCart)
@@ -49,9 +50,11 @@ router.post('/cart/remove', isLoggedIn, handleRemoveFromCart)
 
 // Orders Page
 router.get('/orders', isLoggedIn, (req, res) => {
-    res.render('orders');
+    res.redirect('/my-orders')
 })
 
+// Checkout Page
+router.post('/checkout', isLoggedIn, handleCheckout)
 
 // Admin Page
 router.get('/admin', isAdmin, (req, res) => {
