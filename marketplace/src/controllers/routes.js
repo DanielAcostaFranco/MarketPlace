@@ -24,9 +24,6 @@ router.get('/login', showLoginForm)
 router.post('/login', loginValidation, handleLogin)
 router.get('/logout', handleLogout)
 
-// Is the user Logged In
-router.post('/products/:id/review', isLoggedIn, reviewValidation, handleCreateReview)
-
 // Products Page
 router.get('/products', showProducts)
 

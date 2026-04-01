@@ -15,6 +15,38 @@
                 </p>
                 <button class="btn">Add to Cart</button>
             </div>
+            <div class="reviews">
+                <h2>Customer Reviews</h2>
+                <% if (reviews.length===0) { %>
+                    <p>No reviews yet. Be the first to review this product!</p>
+                    <% } else { %>
+                        <% reviews.forEach(review=> { %>
+                            <div class="review">
+                                <p><strong>
+                                        <%= review.username %>
+                                    </strong> - Rating: <%= review.rating %>/5</p>
+                                <p>
+                                    <%= review.comment %>
+                                </p>
+                                <% if (isLoggedIn && user.role==='admin' ) { %>
+                                    <form action="/reviews/<%= review.id %>/delete" method="POST">
+                                        <input type="hidden" name="productId" value="<%= product.id %>">
+                                        <button type="submit">Delete</button>
+                                    </form>
+                                    <% } %>
+                            </div>
+                            <% }) %>
+                                <% } %>
+            </div>
+            <% if (isLoggedIn) { %>
+                <form action="/products/<%= product.id %>/review" method="POST">
+                    <label>Rating (1-5)</label>
+                    <input type="number" name="rating" min="1" max="5" required>
+                    <label>Comment</label>
+                    <textarea name="comment" required></textarea>
+                    <button type="submit">Submit Review</button>
+                </form>
+                <% } %>
         </div>
     </main>
 
