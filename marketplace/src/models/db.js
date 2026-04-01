@@ -11,7 +11,8 @@ const pool = new Pool({
     password: process.env.DB_PASSWORD,
     ssl: {
         rejectUnauthorized: false
-    }
+    },
+    max: 2
 })
 
 // Export pool for others files or services to use
