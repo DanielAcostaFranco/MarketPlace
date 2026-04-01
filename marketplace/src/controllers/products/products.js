@@ -13,7 +13,7 @@ async function handleDeleteProduct(req, res) {
     } catch (error) {
         req.flash('error', 'Could not delete product.');
     }
-    res.redirect('/products');
+    res.redirect('/admin');
 }
 
 export { showProducts, handleDeleteProduct };

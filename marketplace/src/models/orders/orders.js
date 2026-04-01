@@ -24,4 +24,22 @@ async function clearCart(userId) {
     return result;
 }
 
-export { getOrdersByUser, createOrder, clearCart };
+async function getAllOrders() {
+    const result = await pool.query(
+        `SELECT orders.id, orders.total, orders.status, orders.created_at, users.username
+        FROM orders
+        JOIN users ON orders.buyer_id = users.id
+        ORDER BY orders.created_at DESC`
+    );
+    return result.rows;
+}
+
+async function updateOrderStatus(orderId, status) {
+    await pool.query(
+        'UPDATE orders SET status = $1 WHERE id =$2',
+        [status, orderId]
+    );
+}
+
+
+export { getOrdersByUser, createOrder, clearCart, getAllOrders, updateOrderStatus };

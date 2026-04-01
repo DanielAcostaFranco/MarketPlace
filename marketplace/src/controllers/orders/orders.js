@@ -1,5 +1,6 @@
 import { createOrder, clearCart } from '../../models/orders/orders.js';
 import { getCartByUser } from '../../models/cart/cart.js';
+import { updateOrderStatus } from '../../models/orders/orders.js';
 
 async function handleCheckout(req, res) {
     try {
@@ -20,5 +21,16 @@ async function handleCheckout(req, res) {
         res.redirect('/cart');
     }
 }
+async function handleUpdateOrderStatus(req, res) {
+    try {
+        const { id } = req.params;
+        const { status } = req.body;
+        await updateOrderStatus(id, status);
+        res.redirect('/admin/orders');
+    } catch (error) {
+        console.error('Error updating order status:', error);
+        res.status(500).render('errors/500');
+    }
+}
 
-export { handleCheckout };
+export { handleCheckout, handleUpdateOrderStatus };

@@ -20,15 +20,15 @@
             <% if (isLoggedIn) { %>
                 <% if (user.role==='admin' ) { %>
                     <a href="/admin">Admin</a>
-                    <% } %>
+                    <% } else { %>
                         <a href="/my-orders">My Orders</a>
                         <a href="/cart">Cart</a>
-                        <a href="/logout">Logout</a>
-                        <% } else { %>
-                            <a href="/login">Login</a>
-                            <a href="/register">Register</a>
-
-                            <% } %>
+                        <% } %>
+                            <a href="/logout">Logout</a>
+                            <% } else { %>
+                                <a href="/login">Login</a>
+                                <a href="/register">Register</a>
+                                <% } %>
         </div>
 
     </nav>

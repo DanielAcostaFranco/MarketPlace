@@ -1,0 +1,62 @@
+<%- include('../partials/header') %>
+
+    <main class="admin-dashboard">
+        <h1>Admin Dashboard</h1>
+        <div class="admin-nav">
+            <a href="/admin/products" class="btn">Products</a>
+            <a href="/admin/orders" class="btn">Orders</a>
+            <a href="/admin/users" class="btn">Users</a>
+        </div>
+
+        <h2>Orders</h2>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>User</th>
+                    <th>Total</th>
+                    <th>Status</th>
+                    <th>Date</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% orders.forEach(order=> { %>
+                    <tr>
+                        <td>
+                            <%= order.id %>
+                        </td>
+                        <td>
+                            <%= order.username %>
+                        </td>
+                        <td>$<%= parseFloat(order.total).toFixed(2) %>
+                        </td>
+                        <td>
+                            <%= order.status %>
+                        </td>
+                        <td>
+                            <%= new Date(order.created_at).toLocaleDateString() %>
+                        </td>
+
+                        <td>
+                            <form action="/admin/orders/<%= order.id %>/status" method="POST" style="display:inline;">
+                                <select name="status">
+                                    <option value="pending" <%=order.status==='pending' ? 'selected' : '' %>>Pending
+                                    </option>
+                                    <option value="shipped" <%=order.status==='shipped' ? 'selected' : '' %>>Shipped
+                                    </option>
+                                    <option value="delivered" <%=order.status==='delivered' ? 'selected' : '' %>
+                                        >Delivered</option>
+                                </select>
+                                <button type="submit" class="btn">Update</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+
+    </main>
+
+    <%- include('../partials/footer') %>
