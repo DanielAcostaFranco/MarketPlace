@@ -18,6 +18,9 @@
             <a href="/products">Products</a>
 
             <% if (isLoggedIn) { %>
+                <% if (user.role === 'admin') { %>
+                    <a href="/admin">Admin</a>
+                <% } %>
                 <a href="/dashboard">Hello, <%= user.name %></a>
                 <a href="/logout">Logout</a>
                 <% } else { %>

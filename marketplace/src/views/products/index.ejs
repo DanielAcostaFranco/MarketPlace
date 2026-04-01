@@ -46,6 +46,11 @@
                     <p class="price">$<%= parseFloat(product.price).toFixed(2) %>
                     </p>
                     <a href="/products/<%= product.id %>" class="btn">View Details</a>
+                    <% if (isLoggedIn && user.role === 'admin') { %>
+                        <form action="/products/<%= product.id %>/delete" method="POST">
+                            <button type="submit" class="btn">Delete</button>
+                        </form>
+                    <% } %>
                 </div>
                 <% }) %>
         </div>

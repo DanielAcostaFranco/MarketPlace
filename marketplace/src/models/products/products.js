@@ -5,4 +5,8 @@ async function getAllProducts() {
     return result.rows;
 }
 
-export { getAllProducts };
+async function deleteProduct(id) {
+    await pool.query('DELETE FROM products WHERE id = $1', [id]);
+}
+
+export { getAllProducts, deleteProduct };

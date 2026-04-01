@@ -1,9 +1,10 @@
 import express from 'express';
 import { showRegistrationForm, handleRegistration } from './forms/registration.js';
 import { showLoginForm, handleLogin, handleLogout } from './forms/login.js';
-import { showProducts } from './products/products.js';
+import { showProducts, handleDeleteProduct } from './products/products.js';
 import { showProductDetail } from './products/detail.js';
 import { registrationValidation, loginValidation } from '../middleware/validation/forms.js';
+import isAdmin from '../middleware/admin.js';
 
 const router = express.Router();
 
@@ -26,5 +27,13 @@ router.get('/products', showProducts)
 
 // Detail Page
 router.get('/products/:id', showProductDetail)
+
+// Delete Product (admin only)
+router.post('/products/:id/delete', isAdmin, handleDeleteProduct)
+
+// Admin Page
+router.get('/admin', isAdmin, (req, res) => {
+    res.render('admin')
+})
 
 export default router;
