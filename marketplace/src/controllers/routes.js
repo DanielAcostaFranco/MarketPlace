@@ -7,6 +7,7 @@ import { showProductDetail } from './products/detail.js';
 import { registrationValidation, loginValidation, reviewValidation } from '../middleware/validation/forms.js';
 import { handleCreateReview, handleDeleteReview } from './reviews/reviews.js';
 import isAdmin from '../middleware/admin.js';
+import { showDashboard } from '../dashboard/dashboard.js';
 
 const router = express.Router();
 
@@ -36,6 +37,18 @@ router.post('/products/:id/delete', isAdmin, handleDeleteProduct)
 // Reviews Page
 router.post('/products/:id/review', isLoggedIn, reviewValidation, handleCreateReview)
 router.post('/reviews/:id/delete', isAdmin, handleDeleteReview)
+
+// Dashboard Page
+router.get('/dashboard', isLoggedIn, showDashboard)
+
+
+
+// Orders Page
+router.get('/orders', isLoggedIn, (req, res) => {
+    res.render('orders');
+})
+
+
 
 // Admin Page
 router.get('/admin', isAdmin, (req, res) => {

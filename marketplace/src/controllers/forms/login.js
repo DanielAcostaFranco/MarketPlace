@@ -24,7 +24,7 @@ async function handleLogin(req, res) {
         req.session.user = user
 
         req.flash('success', `Welcome back, ${user.username}!`);
-        res.redirect('/');
+        res.redirect('/dashboard');
 
     } catch (error) {
         console.error('Error during login:', error);

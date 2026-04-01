@@ -1,0 +1,35 @@
+<link rel="stylesheet" href="/css/main.css">
+
+<%- include('../partials/header') %>
+
+    <main class="dashboard">
+        <h1>My Dashboard</h1>
+        <p>Welcome, Here you can manage your orders.</p>
+
+        <div class="orders">
+            <h2>Recent Orders</h2>
+            <% if (orders.length===0) { %>
+                <p>You have no orders yet. Start shopping now!</p>
+                <% } else { %>
+                    <div class="orders-grid">
+                        <% orders.forEach(order=> { %>
+                            <div class="order-card">
+                                <h3>Order #<%= order.id %>
+                                </h3>
+                                <p><strong>Date:</strong>
+                                    <%= new Date(order.created_at).toLocaleDateString() %>
+                                </p>
+                                <p><strong>Total:</strong> $<%= parseFloat(order.total).toFixed(2) %>
+                                </p>
+                                <p><strong>Status:</strong>
+                                    <%= order.status %>
+                                </p>
+                                <a href="/orders/<%= order.id %>" class="btn">View Details</a>
+                            </div>
+                            <% }) %>
+                    </div>
+                    <% } %>
+        </div>
+    </main>
+
+    <%- include('../partials/footer') %>
