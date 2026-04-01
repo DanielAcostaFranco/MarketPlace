@@ -1,0 +1,43 @@
+<link rel="stylesheet" href="/css/cart.css">
+
+<%- include('../partials/header') %>
+
+    <main class="cart">
+        <h1>My Shopping Cart</h1>
+        <% if (items.length === 0) { %>
+            <p>Your cart is empty. <a href="/products">Start shopping!</a></p>
+        <% } else { %>
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Price</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% items.forEach(item => { %>
+                        <tr>
+                            <td>
+                                <img src="<%= item.image_url %>" alt="<%= item.name %>" width="50">
+                                <%= item.name %>
+                            </td>
+                            <td>$<%= parseFloat(item.price).toFixed(2) %></td>
+                            <td>
+                                <form action="/cart/remove" method="POST">
+                                    <input type="hidden" name="cart_id" value="<%= item.id %>">
+                                    <button type="submit" class="btn">Remove</button>
+                                </form>
+                            </td>
+                        </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+            <p><strong>Total: $<%= total.toFixed(2) %></strong></p>
+            <form action="/checkout" method="POST">
+                <button type="submit" class="btn">Checkout</button>
+            </form>
+        <% } %>
+    </main>
+
+<%- include('../partials/footer') %>

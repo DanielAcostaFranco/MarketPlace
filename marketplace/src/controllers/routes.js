@@ -7,7 +7,8 @@ import { showProductDetail } from './products/detail.js';
 import { registrationValidation, loginValidation, reviewValidation } from '../middleware/validation/forms.js';
 import { handleCreateReview, handleDeleteReview } from './reviews/reviews.js';
 import isAdmin from '../middleware/admin.js';
-import { showDashboard } from '../dashboard/dashboard.js';
+import { showDashboard } from './dashboard/dashboard.js';
+import { showCart, handleAddToCart, handleRemoveFromCart } from './cart/cart.js';
 
 const router = express.Router();
 
@@ -41,13 +42,15 @@ router.post('/reviews/:id/delete', isAdmin, handleDeleteReview)
 // Dashboard Page
 router.get('/dashboard', isLoggedIn, showDashboard)
 
-
+// Cart Page 
+router.get('/cart', isLoggedIn, showCart)
+router.post('/cart/add', isLoggedIn, handleAddToCart)
+router.post('/cart/remove', isLoggedIn, handleRemoveFromCart)
 
 // Orders Page
 router.get('/orders', isLoggedIn, (req, res) => {
     res.render('orders');
 })
-
 
 
 // Admin Page
