@@ -100,5 +100,6 @@ export {
     contactValidation,
     registrationValidation,
     loginValidation,
-    updateAccountValidation
+    updateAccountValidation,
+    reviewValidation
 };
