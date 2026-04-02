@@ -1,3 +1,5 @@
+// Registration controller 
+
 import { findUserByEmail, findUserByUsername, createUser } from '../../models/forms/registration.js';
 import { validationResult } from 'express-validator';
 

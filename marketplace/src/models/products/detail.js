@@ -1,3 +1,5 @@
+// Product Detail model
+
 import pool from '../db.js';
 
 async function getProductDetail(id) {

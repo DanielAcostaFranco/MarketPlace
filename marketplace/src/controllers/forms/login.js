@@ -1,3 +1,4 @@
+// Login controller 
 import { loginUser } from '../../models/forms/login.js';
 
 // Show login form

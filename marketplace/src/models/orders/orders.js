@@ -1,5 +1,8 @@
+// Orders model
+
 import pool from '../db.js';
 
+// Get all orders for a specific user
 async function getOrdersByUser(userId) {
     const result = await pool.query(
         'SELECT * FROM orders WHERE buyer_id = $1 ORDER BY created_at DESC',
@@ -8,6 +11,7 @@ async function getOrdersByUser(userId) {
     return result.rows;
 }
 
+// Create a new order with status pending
 async function createOrder(userId, total) {
     const result = await pool.query(
         `INSERT into orders (buyer_id, total, status) VALUES ($1, $2, 'pending') RETURNING *`,
@@ -16,6 +20,7 @@ async function createOrder(userId, total) {
     return result.rows[0];
 }
 
+// Delete all cart items for a user after checkout
 async function clearCart(userId) {
     const result = await pool.query(
         `DELETE FROM cart WHERE user_id = $1`,
@@ -24,6 +29,7 @@ async function clearCart(userId) {
     return result;
 }
 
+// Get all orders with username (for admin)
 async function getAllOrders() {
     const result = await pool.query(
         `SELECT orders.id, orders.total, orders.status, orders.created_at, users.username
@@ -34,12 +40,12 @@ async function getAllOrders() {
     return result.rows;
 }
 
+// Update the status of an order
 async function updateOrderStatus(orderId, status) {
     await pool.query(
         'UPDATE orders SET status = $1 WHERE id =$2',
         [status, orderId]
     );
 }
-
 
 export { getOrdersByUser, createOrder, clearCart, getAllOrders, updateOrderStatus };

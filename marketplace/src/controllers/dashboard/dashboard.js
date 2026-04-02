@@ -1,5 +1,8 @@
+// Dashboard controller 
+
 import { getOrdersByUser } from '../../models/orders/orders.js'
 
+// Show all orders for the logged in user
 async function showDashboard(req, res) {
     try {
         const orders = await getOrdersByUser(req.session.user.id)

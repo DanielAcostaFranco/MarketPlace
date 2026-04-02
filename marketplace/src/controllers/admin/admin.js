@@ -1,7 +1,10 @@
+// Admin controller - handles all admin dashboard actions
+
 import { createProduct, getAllProducts, getProductById, updateProduct } from '../../models/products/products.js';
 import { getAllOrders, updateOrderStatus } from '../../models/orders/orders.js';
 import { getAllUsers, updateUserRole, deleteUser } from '../../models/users/users.js';
 
+// Show the main admin dashboard page
 async function showAdminDashboard(_req, res) {
     try {
         res.render('admin/index');
@@ -11,6 +14,7 @@ async function showAdminDashboard(_req, res) {
     }
 }
 
+// Show all products in a table
 async function showAdminProducts(req, res) {
     try {
         const products = await getAllProducts();
@@ -21,6 +25,7 @@ async function showAdminProducts(req, res) {
     }
 }
 
+// Show all orders with username from the join
 async function showAdminOrders(req, res) {
     try {
         const orders = await getAllOrders();
@@ -31,6 +36,7 @@ async function showAdminOrders(req, res) {
     }
 }
 
+// Show all users in a table
 async function showAdminUsers(req, res) {
     try {
         const users = await getAllUsers();
@@ -41,6 +47,7 @@ async function showAdminUsers(req, res) {
     }
 }
 
+// Update order status (pending, shipped, delivered)
 async function handleUpdateOrderStatus(req, res) {
     try {
         const { id } = req.params;
@@ -54,6 +61,7 @@ async function handleUpdateOrderStatus(req, res) {
     }
 }
 
+// Change a user's role (buyer, moderator, admin)
 async function handleUpdateUserRole(req, res) {
     try {
         const { id } = req.params;
@@ -64,10 +72,10 @@ async function handleUpdateUserRole(req, res) {
     } catch (error) {
         console.error('Error updating user role: ', error);
         res.status(500).render('errors/500');
-
     }
 }
 
+// Delete a user from the database
 async function handleDeleteUser(req, res) {
     try {
         const { id } = req.params;
@@ -78,13 +86,14 @@ async function handleDeleteUser(req, res) {
         console.error('Error trying to delete user:', error);
         res.status(500).render('errors/500');
     }
-
 }
 
+// Show the add product form
 function showAddProductForm(_req, res) {
     res.render('admin/add-product');
 }
 
+// Save new product to the database
 async function handleAddProduct(req, res) {
     try {
         const { name, description, price, category, image_url } = req.body;
@@ -97,6 +106,7 @@ async function handleAddProduct(req, res) {
     }
 }
 
+// Show the edit form with the current product data
 async function showEditProductForm(req, res) {
     try {
         const { id } = req.params;
@@ -108,6 +118,7 @@ async function showEditProductForm(req, res) {
     }
 }
 
+// Save the updated product info
 async function handleEditProduct(req, res) {
     try {
         const { id } = req.params;
@@ -119,11 +130,7 @@ async function handleEditProduct(req, res) {
         console.error('Error updating product:', error);
         res.status(500).render('errors/500');
     }
-
 }
-
-
-
 
 export {
     showAdminDashboard, showAdminProducts, showAdminUsers,

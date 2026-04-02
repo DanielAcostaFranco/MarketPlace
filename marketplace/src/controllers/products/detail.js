@@ -1,6 +1,10 @@
+// Detail controller for products
+
 import { getProductDetail } from '../../models/products/detail.js';
 import { getReviewsByProductId } from '../../models/reviews/reviews.js';
 
+
+// Show product detail page
 async function showProductDetail(req, res) {
     const { id } = req.params;
     try {

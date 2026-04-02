@@ -1,3 +1,5 @@
+// Registration model
+
 import pool from '../db.js';
 import bcrypt from 'bcryptjs';
 

@@ -1,4 +1,4 @@
-// Flash Middleware for Express.js
+// Flash Middleware
 
 // Initialize flash messages if they don't exist
 const flash = (req, res, next) => {

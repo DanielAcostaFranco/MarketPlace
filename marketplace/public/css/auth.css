@@ -29,11 +29,11 @@
 .form-group input {
     width: 100%;
     padding: 10px 12px;
-    border: 1px solid #ddd;
+    border: 1px solid #000000;
     border-radius: 6px;
     font-size: 1rem;
     box-sizing: border-box;
-    background: #f4f4f4;
+    background: #dbd9d9;
 }
 
 .form-group input:focus {

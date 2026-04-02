@@ -1,8 +1,11 @@
+// Cart controller 
 import { getCartByUser, addToCart, removeFromCart } from "../../models/cart/cart.js";
 
+// Show the cart page with items and total
 async function showCart(req, res) {
     try {
         const items = await getCartByUser(req.session.user.id);
+        // Add up all item prices for the total
         const total = items.reduce((sum, item) => sum + parseFloat(item.price), 0);
         res.render('cart/index', { items, total });
     } catch (error) {
@@ -11,6 +14,7 @@ async function showCart(req, res) {
     }
 }
 
+// Add a product to the cart
 async function handleAddToCart(req, res) {
     try {
         const { product_id } = req.body;
@@ -23,6 +27,8 @@ async function handleAddToCart(req, res) {
         res.redirect('/products');
     }
 }
+
+// Remove one item from the cart
 async function handleRemoveFromCart(req, res) {
     try {
         const { cart_id } = req.body;

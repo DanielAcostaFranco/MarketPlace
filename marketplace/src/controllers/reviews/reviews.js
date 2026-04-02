@@ -1,11 +1,14 @@
+// Reviews controller 
 import { createReview, deleteReview, getReviewById, updateReview } from '../../models/reviews/reviews.js';
 import { validationResult } from 'express-validator';
 
+// Submit a new review
 async function handleCreateReview(req, res) {
     const productId = req.params.id;
     const userId = req.session.user.id;
     const { rating, comment } = req.body;
 
+    // Check validation errors first
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         req.flash('error', 'Please fill in all required fields.');
@@ -25,11 +28,23 @@ async function handleCreateReview(req, res) {
     }
 }
 
+// Delete a review - owner, moderator, or admin can do this
 async function handleDeleteReview(req, res) {
     const productId = req.body.productId;
     const reviewId = req.params.id;
+    const { role, id: userId } = req.session.user;
 
     try {
+        const review = await getReviewById(reviewId);
+        const isOwner = review.user_id === userId;
+        const isModOrAdmin = role === 'admin' || role === 'moderator';
+
+        // Block if not the owner and not mod/admin
+        if (!isOwner && !isModOrAdmin) {
+            req.flash('error', 'You do not have permission to delete this review.');
+            return res.redirect(`/products/${productId}`);
+        }
+
         await deleteReview(reviewId);
         req.flash('success', 'Review deleted successfully!');
         res.redirect(`/products/${productId}`);
@@ -41,6 +56,7 @@ async function handleDeleteReview(req, res) {
     }
 }
 
+// Show the edit review form - only the owner can see this
 async function showEditReview(req, res) {
     try {
         const review = await getReviewById(req.params.id);
@@ -55,6 +71,7 @@ async function showEditReview(req, res) {
     }
 }
 
+// Save the updated review
 async function handleEditReview(req, res) {
     try {
         const { rating, comment, productId } = req.body;

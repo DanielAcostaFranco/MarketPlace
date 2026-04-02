@@ -1,5 +1,8 @@
+// Database setup script 
+
 import pool from './db.js'
 
+// Function to create tables and set up the database 
 async function setupDatabase() {
     try {
         // Create users table

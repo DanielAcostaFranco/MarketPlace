@@ -36,7 +36,7 @@
                         <% if (isLoggedIn && user.id === review.user_id) { %>
                             <a href="/reviews/<%= review.id %>/edit" class="btn">Edit</a>
                         <% } %>
-                        <% if (isLoggedIn && (user.role==='admin' || user.role==='moderator')) { %>
+                        <% if (isLoggedIn && (user.id === review.user_id || user.role==='admin' || user.role==='moderator')) { %>
                             <form action="/reviews/<%= review.id %>/delete" method="POST" style="display:inline;">
                                 <input type="hidden" name="productId" value="<%= product.id %>">
                                 <button type="submit" class="btn delete">Delete</button>

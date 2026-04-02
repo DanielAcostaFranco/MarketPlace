@@ -1,9 +1,9 @@
+// Validation middleware for forms
+
 import { body } from 'express-validator';
 
 
-/**
- * Validation rules for login form
- */
+// Validation middleware for forms
 const loginValidation = [
     body('email')
         .trim()

@@ -1,3 +1,5 @@
+// Main router 
+
 import express from 'express';
 import { showRegistrationForm, handleRegistration } from './forms/registration.js';
 import { showLoginForm, handleLogin, handleLogout } from './forms/login.js';
@@ -8,7 +10,6 @@ import { registrationValidation, loginValidation, reviewValidation } from '../mi
 import { handleCreateReview, handleDeleteReview, showEditReview, handleEditReview } from './reviews/reviews.js';
 import { handleCheckout } from './orders/orders.js';
 import isAdmin from '../middleware/admin.js';
-import isModerator from '../middleware/moderator.js';
 import { showDashboard } from './dashboard/dashboard.js';
 import { showCart, handleAddToCart, handleRemoveFromCart } from './cart/cart.js';
 import {
@@ -50,7 +51,7 @@ router.post('/products/:id/delete', isAdmin, handleDeleteProduct)
 
 // Reviews Page
 router.post('/products/:id/review', isLoggedIn, reviewValidation, handleCreateReview)
-router.post('/reviews/:id/delete', isModerator, handleDeleteReview)
+router.post('/reviews/:id/delete', isLoggedIn, handleDeleteReview)
 router.get('/reviews/:id/edit', isLoggedIn, showEditReview)
 router.post('/reviews/:id/edit', isLoggedIn, handleEditReview)
 
