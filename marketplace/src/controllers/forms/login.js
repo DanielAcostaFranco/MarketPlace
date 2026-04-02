@@ -33,7 +33,7 @@ async function handleLogin(req, res) {
         req.session.user = user
 
         req.flash('success', `Welcome back, ${user.username}!`);
-        res.redirect('/my-orders');
+        res.redirect('/products');
 
     } catch (error) {
         console.error('Error during login:', error);
