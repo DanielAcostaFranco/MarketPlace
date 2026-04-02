@@ -6,4 +6,19 @@ async function getAllUsers() {
     return result.rows;
 }
 
-export { getAllUsers };
+async function updateUserRole(userId, role) {
+    await pool.query(
+        'UPDATE users SET role =$1 WHERE id=$2',
+        [role, userId]
+    );
+}
+
+async function deleteUser(userId) {
+    await pool.query(
+        'DELETE FROM users WHERE id=$1',
+        [userId]
+    );
+}
+
+
+export { getAllUsers, updateUserRole, deleteUser };

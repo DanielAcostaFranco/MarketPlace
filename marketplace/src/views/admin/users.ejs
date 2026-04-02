@@ -16,6 +16,8 @@
                     <th>Name</th>
                     <th>Email</th>
                     <th>Role</th>
+                    <th>Actions</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -25,7 +27,7 @@
                             <%= user.id %>
                         </td>
                         <td>
-                            <%= user.name %>
+                            <%= user.username %>
                         </td>
                         <td>
                             <%= user.email %>
@@ -33,9 +35,24 @@
                         <td>
                             <%= user.role %>
                         </td>
+                        <td>
+                            <form action="/admin/users/<%= user.id %>/role" method="POST" style="display:inline;">
+                                <select name="role">
+                                    <option value="buyer" <%=user.role==='buyer' ? 'selected' : '' %>>Buyer</option>
+                                    <option value="admin" <%=user.role==='admin' ? 'selected' : '' %>>Admin</option>
+                                </select>
+                                <button type="submit" class="btn">Update</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form action="/admin/users/<%= user.id %>/delete" method="POST" style="display:inline;">
+                                <button type="submit" class="btn">Delete</button>
+                            </form>
+                        </td>
                     </tr>
                     <% }) %>
             </tbody>
+        </table>
 
     </main>
 
