@@ -1,4 +1,4 @@
-import { getAllProducts } from '../../models/products/products.js';
+import { createProduct, getAllProducts } from '../../models/products/products.js';
 import { getAllOrders, updateOrderStatus } from '../../models/orders/orders.js';
 import { getAllUsers, updateUserRole, deleteUser } from '../../models/users/users.js';
 
@@ -81,7 +81,27 @@ async function handleDeleteUser(req, res) {
 
 }
 
+function showAddProductForm(_req, res) {
+    res.render('admin/add-product');
+}
+
+async function handleAddProduct(req, res) {
+    try {
+        const { name, description, price, category, image_url } = req.body;
+        await createProduct(name, description, price, category, image_url);
+        req.flash('success', 'Product added successfully');
+        res.redirect('/admin/products');
+    } catch (error) {
+        console.error('Error adding the product:', error);
+        res.status(500).render('errors/500');
+    }
+}
 
 
 
-export { showAdminDashboard, showAdminProducts, showAdminUsers, showAdminOrders, handleUpdateOrderStatus, handleUpdateUserRole, handleDeleteUser };
+
+export {
+    showAdminDashboard, showAdminProducts, showAdminUsers,
+    showAdminOrders, handleUpdateOrderStatus, handleUpdateUserRole,
+    handleDeleteUser, showAddProductForm, handleAddProduct
+};

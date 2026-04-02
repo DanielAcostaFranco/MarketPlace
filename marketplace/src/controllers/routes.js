@@ -10,7 +10,11 @@ import { handleCheckout } from './orders/orders.js';
 import isAdmin from '../middleware/admin.js';
 import { showDashboard } from './dashboard/dashboard.js';
 import { showCart, handleAddToCart, handleRemoveFromCart } from './cart/cart.js';
-import { showAdminDashboard, showAdminOrders, showAdminProducts, showAdminUsers, handleUpdateOrderStatus, handleUpdateUserRole, handleDeleteUser } from './admin/admin.js';
+import {
+    showAdminDashboard, showAdminOrders, showAdminProducts,
+    showAdminUsers, handleUpdateOrderStatus, handleUpdateUserRole,
+    handleDeleteUser, showAddProductForm, handleAddProduct
+} from './admin/admin.js';
 
 const router = express.Router();
 
@@ -62,8 +66,10 @@ router.get('/admin', isAdmin, showAdminDashboard)
 router.get('/admin/products', isAdmin, showAdminProducts)
 router.get('/admin/users', isAdmin, showAdminUsers)
 router.get('/admin/orders', isAdmin, showAdminOrders)
+router.get('/admin/products/new', isAdmin, showAddProductForm)
 router.post('/admin/orders/:id/status', isAdmin, handleUpdateOrderStatus)
 router.post('/admin/users/:id/role', isAdmin, handleUpdateUserRole)
 router.post('/admin/users/:id/delete', isAdmin, handleDeleteUser)
+router.post('/admin/products/new', isAdmin, handleAddProduct)
 
 export default router;

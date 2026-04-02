@@ -1,42 +1,51 @@
 <%- include('../partials/header') %>
 
-<main class="admin-dashboard">
-    <h1>Admin Dashboard</h1>
-    <div class="admin-nav">
-        <a href="/admin/products" class="btn">Products</a>
-        <a href="/admin/orders" class="btn">Orders</a>
-        <a href="/admin/users" class="btn">Users</a>
-    </div>
+    <main class="admin-dashboard">
+        <h1>Admin Dashboard</h1>
+        <div class="admin-nav">
+            <a href="/admin/products" class="btn">Products</a>
+            <a href="/admin/orders" class="btn">Orders</a>
+            <a href="/admin/users" class="btn">Users</a>
+        </div>
 
-    <h2>Products</h2>
-    <table class="admin-table">
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Image</th>
-                <th>Name</th>
-                <th>Category</th>
-                <th>Price</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <% products.forEach(product=> { %>
+        <h2>Products</h2>
+        <a href="/admin/products/new" class="btn">+ Add Product</a>
+
+        <table class="admin-table">
+            <thead>
                 <tr>
-                    <td><%= product.id %></td>
-                    <td><img src="<%= product.image_url %>" alt="<%= product.name %>" width="60"></td>
-                    <td><%= product.name %></td>
-                    <td><%= product.category %></td>
-                    <td>$<%= parseFloat(product.price).toFixed(2) %></td>
-                    <td>
-                        <form action="/products/<%= product.id %>/delete" method="POST" style="display:inline;">
-                            <button type="submit" class="btn delete">Delete</button>
-                        </form>
-                    </td>
+                    <th>ID</th>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Actions</th>
                 </tr>
-            <% }) %>
-        </tbody>
-    </table>
-</main>
+            </thead>
+            <tbody>
+                <% products.forEach(product=> { %>
+                    <tr>
+                        <td>
+                            <%= product.id %>
+                        </td>
+                        <td><img src="<%= product.image_url %>" alt="<%= product.name %>" width="60"></td>
+                        <td>
+                            <%= product.name %>
+                        </td>
+                        <td>
+                            <%= product.category %>
+                        </td>
+                        <td>$<%= parseFloat(product.price).toFixed(2) %>
+                        </td>
+                        <td>
+                            <form action="/products/<%= product.id %>/delete" method="POST" style="display:inline;">
+                                <button type="submit" class="btn delete">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </main>
 
-<%- include('../partials/footer') %>
+    <%- include('../partials/footer') %>
