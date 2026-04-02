@@ -10,11 +10,12 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 12px 20px;
-    background: #ffffff;
-    border-bottom: 1px solid #ddd;
+    background: #0b63c9;
+    border-bottom: 1px solid #0952a8;
 }
 
-nav div a {
+nav a {
+    color: white;
     margin-left: 12px;
 }
 
@@ -80,4 +81,13 @@ footer {
 
 .btn.delete {
     background: #c0392b;
+}
+
+input, textarea, select {
+    border: 1px solid #222;
+    border-radius: 6px;
+    background: #f4f4f4;
+    padding: 8px 12px;
+    font-size: 1rem;
+    box-sizing: border-box;
 }

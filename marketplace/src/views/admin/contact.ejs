@@ -1,0 +1,53 @@
+<%- include('../partials/header') %>
+
+<main class="admin-dashboard">
+    <h1>Admin Dashboard</h1>
+    <div class="admin-nav">
+        <a href="/admin/products" class="btn">Products</a>
+        <a href="/admin/orders" class="btn">Orders</a>
+        <a href="/admin/users" class="btn">Users</a>
+        <a href="/admin/contact" class="btn">Contact</a>
+    </div>
+
+    <h2>Contact Messages</h2>
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>User</th>
+                <th>Reason</th>
+                <th>Message</th>
+                <th>Status</th>
+                <th>Notes</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% messages.forEach(msg => { %>
+                <tr>
+                    <td><%= msg.id %></td>
+                    <td><%= msg.username %></td>
+                    <td><%= msg.reason %></td>
+                    <td><%= msg.message %></td>
+                    <td><%= msg.status %></td>
+                    <td><%= msg.notes || '-' %></td>
+                    <td><%= new Date(msg.created_at).toLocaleDateString() %></td>
+                    <td>
+                        <form action="/admin/contact/<%= msg.id %>/update" method="POST">
+                            <select name="status">
+                                <option value="submitted" <%= msg.status === 'submitted' ? 'selected' : '' %>>Submitted</option>
+                                <option value="in_progress" <%= msg.status === 'in_progress' ? 'selected' : '' %>>In Progress</option>
+                                <option value="completed" <%= msg.status === 'completed' ? 'selected' : '' %>>Completed</option>
+                            </select>
+                            <input type="text" name="notes" value="<%= msg.notes || '' %>" placeholder="Add a note...">
+                            <button type="submit" class="btn">Update</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</main>
+
+<%- include('../partials/footer') %>

@@ -6,7 +6,9 @@ import { showLoginForm, handleLogin, handleLogout } from './forms/login.js';
 import isLoggedIn from '../middleware/auth.js';
 import { showProducts, handleDeleteProduct } from './products/products.js';
 import { showProductDetail } from './products/detail.js';
-import { registrationValidation, loginValidation, reviewValidation } from '../middleware/validation/forms.js';
+import { registrationValidation, loginValidation, reviewValidation, contactValidation } from '../middleware/validation/forms.js';
+import { showContactForm, handleContactSubmit, showAdminContact, handleUpdateContact } from './contact/contact.js';
+import isModerator from '../middleware/moderator.js';
 import { handleCreateReview, handleDeleteReview, showEditReview, handleEditReview } from './reviews/reviews.js';
 import { handleCheckout } from './orders/orders.js';
 import isAdmin from '../middleware/admin.js';
@@ -70,6 +72,14 @@ router.get('/orders', isLoggedIn, (req, res) => {
 
 // Checkout Page
 router.post('/checkout', isLoggedIn, handleCheckout)
+
+// Contact Page
+router.get('/contact', isLoggedIn, showContactForm)
+router.post('/contact', isLoggedIn, contactValidation, handleContactSubmit)
+
+// Admin Contact Page
+router.get('/admin/contact', isModerator, showAdminContact)
+router.post('/admin/contact/:id/update', isModerator, handleUpdateContact)
 
 // Admin Pages
 router.get('/admin', isAdmin, showAdminDashboard)

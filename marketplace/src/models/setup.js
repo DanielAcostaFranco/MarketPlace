@@ -84,6 +84,20 @@ async function setupDatabase() {
         console.log('Reviews table created');
         console.log('Database setup completed successfully');
 
+        // Create contact messages table
+        await pool.query(`
+            CREATE TABLE IF NOT EXISTS contact_messages (
+                id SERIAL PRIMARY KEY,
+                user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+                reason VARCHAR(100) NOT NULL,
+                message TEXT NOT NULL,
+                status VARCHAR(20) DEFAULT 'submitted',
+                notes TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+        `);
+        console.log('Contact messages table created');
+
         await pool.query(`
             CREATE TABLE IF NOT EXISTS session (
                 sid VARCHAR NOT NULL COLLATE "default",

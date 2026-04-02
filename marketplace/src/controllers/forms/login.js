@@ -1,5 +1,6 @@
-// Login controller 
+// Login controller
 import { loginUser } from '../../models/forms/login.js';
+import { validationResult } from 'express-validator';
 
 // Show login form
 async function showLoginForm(req, res) {
@@ -9,6 +10,13 @@ async function showLoginForm(req, res) {
 // Handle login form submission
 async function handleLogin(req, res) {
     const { email, password } = req.body;
+
+    // Check validation errors first
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        errors.array().forEach(error => req.flash('error', error.msg));
+        return res.redirect('/login');
+    }
 
     try {
         // Verify email and password
