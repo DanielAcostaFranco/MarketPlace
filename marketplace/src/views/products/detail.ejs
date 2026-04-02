@@ -13,12 +13,14 @@
                 </p>
                 <p class="price">$<%= parseFloat(product.price).toFixed(2) %>
                 </p>
-                <% if (isLoggedIn && user.role !=='admin' ) { %>
+                <% if (!isLoggedIn) { %>
+                    <a href="/login-required" class="btn">Add to Cart</a>
+                <% } else if (user.role !== 'admin') { %>
                     <form action="/cart/add" method="POST">
                         <input type="hidden" name="product_id" value="<%= product.id %>">
                         <button type="submit" class="btn">Add to Cart</button>
                     </form>
-                    <% } %>
+                <% } %>
 
             </div>
             <div class="reviews">

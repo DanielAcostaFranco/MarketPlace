@@ -1,4 +1,4 @@
-import { createProduct, getAllProducts } from '../../models/products/products.js';
+import { createProduct, getAllProducts, getProductById, updateProduct } from '../../models/products/products.js';
 import { getAllOrders, updateOrderStatus } from '../../models/orders/orders.js';
 import { getAllUsers, updateUserRole, deleteUser } from '../../models/users/users.js';
 
@@ -97,11 +97,37 @@ async function handleAddProduct(req, res) {
     }
 }
 
+async function showEditProductForm(req, res) {
+    try {
+        const { id } = req.params;
+        const product = await getProductById(id);
+        res.render('admin/edit-product', { product });
+    } catch (error) {
+        console.error('Error loading form', error);
+        res.status(500).render('errors/500');
+    }
+}
+
+async function handleEditProduct(req, res) {
+    try {
+        const { id } = req.params;
+        const { name, description, price, category, image_url } = req.body;
+        await updateProduct(id, name, description, price, category, image_url);
+        req.flash('success', 'Product updated successfully.');
+        res.redirect('/admin/products');
+    } catch (error) {
+        console.error('Error updating product:', error);
+        res.status(500).render('errors/500');
+    }
+
+}
+
 
 
 
 export {
     showAdminDashboard, showAdminProducts, showAdminUsers,
     showAdminOrders, handleUpdateOrderStatus, handleUpdateUserRole,
-    handleDeleteUser, showAddProductForm, handleAddProduct
+    handleDeleteUser, showAddProductForm, handleAddProduct,
+    showEditProductForm, handleEditProduct
 };

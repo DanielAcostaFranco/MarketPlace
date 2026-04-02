@@ -13,7 +13,9 @@ import { showCart, handleAddToCart, handleRemoveFromCart } from './cart/cart.js'
 import {
     showAdminDashboard, showAdminOrders, showAdminProducts,
     showAdminUsers, handleUpdateOrderStatus, handleUpdateUserRole,
-    handleDeleteUser, showAddProductForm, handleAddProduct
+    handleDeleteUser, showAddProductForm, handleAddProduct,
+    showEditProductForm,
+    handleEditProduct
 } from './admin/admin.js';
 
 const router = express.Router();
@@ -31,6 +33,10 @@ router.post('/register', registrationValidation, handleRegistration)
 router.get('/login', showLoginForm)
 router.post('/login', loginValidation, handleLogin)
 router.get('/logout', handleLogout)
+router.get('/login-required', (req, res) => {
+    req.flash('error', 'You must be logged in to add items to your cart.');
+    res.redirect('/login');
+})
 
 // Products Page
 router.get('/products', showProducts)
@@ -67,9 +73,11 @@ router.get('/admin/products', isAdmin, showAdminProducts)
 router.get('/admin/users', isAdmin, showAdminUsers)
 router.get('/admin/orders', isAdmin, showAdminOrders)
 router.get('/admin/products/new', isAdmin, showAddProductForm)
+router.get('/admin/products/:id/edit', isAdmin, showEditProductForm)
 router.post('/admin/orders/:id/status', isAdmin, handleUpdateOrderStatus)
 router.post('/admin/users/:id/role', isAdmin, handleUpdateUserRole)
 router.post('/admin/users/:id/delete', isAdmin, handleDeleteUser)
 router.post('/admin/products/new', isAdmin, handleAddProduct)
+router.post('/admin/products/:id/edit', isAdmin, handleEditProduct)
 
 export default router;

@@ -11,6 +11,7 @@
         <h2>Products</h2>
         <a href="/admin/products/new" class="btn">+ Add Product</a>
 
+
         <table class="admin-table">
             <thead>
                 <tr>
@@ -38,6 +39,7 @@
                         <td>$<%= parseFloat(product.price).toFixed(2) %>
                         </td>
                         <td>
+                            <a href="/admin/products/<%= product.id %>/edit" class="btn">Edit</a>
                             <form action="/products/<%= product.id %>/delete" method="POST" style="display:inline;">
                                 <button type="submit" class="btn delete">Delete</button>
                             </form>
