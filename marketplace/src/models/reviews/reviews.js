@@ -22,5 +22,17 @@ async function deleteReview(reviewId) {
     await pool.query('DELETE FROM reviews WHERE id = $1', [reviewId]);
 }
 
-export { getReviewsByProductId, createReview, deleteReview };
+async function getReviewById(reviewId) {
+    const result = await pool.query('SELECT * FROM reviews WHERE id = $1', [reviewId]);
+    return result.rows[0];
+}
+
+async function updateReview(reviewId, userId, rating, comment) {
+    await pool.query(
+        'UPDATE reviews SET rating = $1, comment = $2 WHERE id = $3 AND user_id = $4',
+        [rating, comment, reviewId, userId]
+    );
+}
+
+export { getReviewsByProductId, createReview, deleteReview, getReviewById, updateReview };
 

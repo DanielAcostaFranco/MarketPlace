@@ -5,7 +5,7 @@ import isLoggedIn from '../middleware/auth.js';
 import { showProducts, handleDeleteProduct } from './products/products.js';
 import { showProductDetail } from './products/detail.js';
 import { registrationValidation, loginValidation, reviewValidation } from '../middleware/validation/forms.js';
-import { handleCreateReview, handleDeleteReview } from './reviews/reviews.js';
+import { handleCreateReview, handleDeleteReview, showEditReview, handleEditReview } from './reviews/reviews.js';
 import { handleCheckout } from './orders/orders.js';
 import isAdmin from '../middleware/admin.js';
 import isModerator from '../middleware/moderator.js';
@@ -51,6 +51,8 @@ router.post('/products/:id/delete', isAdmin, handleDeleteProduct)
 // Reviews Page
 router.post('/products/:id/review', isLoggedIn, reviewValidation, handleCreateReview)
 router.post('/reviews/:id/delete', isModerator, handleDeleteReview)
+router.get('/reviews/:id/edit', isLoggedIn, showEditReview)
+router.post('/reviews/:id/edit', isLoggedIn, handleEditReview)
 
 // My Orders Page
 router.get('/my-orders', isLoggedIn, showDashboard)

@@ -39,6 +39,7 @@
                             <form action="/admin/users/<%= user.id %>/role" method="POST" style="display:inline;">
                                 <select name="role">
                                     <option value="buyer" <%=user.role==='buyer' ? 'selected' : '' %>>Buyer</option>
+                                    <option value="moderator" <%=user.role==='moderator' ? 'selected' : '' %>>Moderator</option>
                                     <option value="admin" <%=user.role==='admin' ? 'selected' : '' %>>Admin</option>
                                 </select>
                                 <button type="submit" class="btn">Update</button>

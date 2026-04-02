@@ -1,0 +1,35 @@
+.dashboard {
+    text-align: left;
+}
+
+.orders {
+    margin-top: 1.5rem;
+}
+
+.orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.order-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    background: #f4f4f4;
+}
+
+.order-card h3 {
+    margin-top: 0;
+    color: #222;
+}
+
+.order-card p {
+    margin: 6px 0;
+    color: #555;
+}
+
+.order-card .btn {
+    margin-top: 12px;
+}
