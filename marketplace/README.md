@@ -6,7 +6,7 @@ Damazon is an online store where people can buy tech products. Users can look at
 
 This project is a full-stack web app built with Node.js, Express, EJS, and PostgreSQL. It has user login, three different roles, a shopping cart and orders. Admins can add, edit, and delete products, manage users, and update order status. Buyers can shop and leave reviews. Moderators can remove bad reviews.
 
-## Database Schema
+## Database Schema (ERD)
 
 [ERD](public/images/erd.png)
 
@@ -38,4 +38,9 @@ User: user1@email.com
 
 > Password for all accounts: `Password1!`
 
+## Known Limitations
+
+- No email confirmation when registering
+- People don't have to "buy" something to leave a review.
+- We don't have password recovery. 
 
