@@ -8,6 +8,7 @@ import { registrationValidation, loginValidation, reviewValidation } from '../mi
 import { handleCreateReview, handleDeleteReview } from './reviews/reviews.js';
 import { handleCheckout } from './orders/orders.js';
 import isAdmin from '../middleware/admin.js';
+import isModerator from '../middleware/moderator.js';
 import { showDashboard } from './dashboard/dashboard.js';
 import { showCart, handleAddToCart, handleRemoveFromCart } from './cart/cart.js';
 import {
@@ -49,7 +50,7 @@ router.post('/products/:id/delete', isAdmin, handleDeleteProduct)
 
 // Reviews Page
 router.post('/products/:id/review', isLoggedIn, reviewValidation, handleCreateReview)
-router.post('/reviews/:id/delete', isAdmin, handleDeleteReview)
+router.post('/reviews/:id/delete', isModerator, handleDeleteReview)
 
 // My Orders Page
 router.get('/my-orders', isLoggedIn, showDashboard)

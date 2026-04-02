@@ -36,7 +36,7 @@
                                 <p>
                                     <%= review.comment %>
                                 </p>
-                                <% if (isLoggedIn && user.role==='admin' ) { %>
+                                <% if (isLoggedIn && (user.role==='admin' || user.role==='moderator')) { %>
                                     <form action="/reviews/<%= review.id %>/delete" method="POST">
                                         <input type="hidden" name="productId" value="<%= product.id %>">
                                         <button type="submit">Delete</button>
