@@ -11,12 +11,12 @@ This project is a full-stack web app built with Node.js, Express, EJS, and Postg
 [ERD](public/images/erd.png)
 
 **Tables:**
-- `users` — stores user accounts and roles
-- `products` — stores all products in the store
-- `cart` — stores items a user added to their cart
-- `orders` — stores orders placed by users
-- `reviews` — stores reviews left by buyers on products
-- `session` — stores login sessions
+- `users` — stores user accounts and roles.
+- `products` — stores all products in the store.
+- `cart` — stores items a user added to their cart.
+- `orders` — stores orders placed by users.
+- `reviews` — stores reviews left by buyers on products.
+- `session` — stores login sessions.
 
 ## User Roles
 
